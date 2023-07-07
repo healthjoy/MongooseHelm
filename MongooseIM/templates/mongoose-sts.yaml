@@ -40,6 +40,9 @@ spec:
             value: "name"
           - name: NODE_NAME
             value: {{ .Values.nodeName }}
+          {{- with .Values.envVariables }}
+          {{- toYaml . | nindent 10 }}
+          {{- end }}
         ports:
         - name: epmd
           containerPort: 4369
