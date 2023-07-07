@@ -64,12 +64,15 @@ spec:
         volumeMounts:
         - name: config-map
           mountPath: /member
+        {{- if .Values.persistenceEnabled }}
         - name: mnesia
           mountPath: /var/lib/mongooseim
+        {{- end }}
       volumes:
       - name: config-map
         configMap:
           name: mongooseim
+  {{- if .Values.persistenceEnabled }}
   volumeClaimTemplates:
   - metadata:
       name: mnesia
@@ -81,3 +84,4 @@ spec:
       resources:
         requests:
           storage: 1Gi
+  {{- end }}
